@@ -68,6 +68,7 @@ public class Main {
 		System.out.println("########## Kettle Tranformation ##########");
 		System.out.println("Insert Filename");
 		String _filename = scan.next();
+		transformation = new Tranformations();
 		return transformation.runTransformationFromFileSystem(_filename);
 	}
 }

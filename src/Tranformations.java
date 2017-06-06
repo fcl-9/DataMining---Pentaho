@@ -1,4 +1,5 @@
 import org.apache.commons.lang3.RandomStringUtils;
+import org.pentaho.di.core.KettleEnvironment;
 import org.pentaho.di.core.Result;
 import org.pentaho.di.core.logging.LogLevel;
 import org.pentaho.di.repository.Repository;
@@ -27,6 +28,7 @@ public class Tranformations {
 	  public Trans runTransformationFromFileSystem( String filename ) {
 
 	    try {
+	    	KettleEnvironment.init();
 	      System.out.println( "***************************************************************************************" );
 	      System.out.println( "Attempting to run transformation " + filename + " from file system" );
 	      System.out.println( "***************************************************************************************\n" );
