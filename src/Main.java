@@ -1,8 +1,12 @@
 import java.util.Scanner;
 
+import org.pentaho.di.trans.Trans;
+
 public class Main {
 	static CSV2Arff fileConverted;
 	static RulesGenerator rules;
+	static Tranformations transformation;
+	
 	static Scanner scan = new Scanner(System.in);
 
 	public static void main(String[] args) throws Exception {
@@ -11,7 +15,8 @@ public class Main {
 				System.out.println("########## MENU ##########");
 				System.out.println("1 - File Conversion");
 				System.out.println("2 - Rule Generation");
-				System.out.println("3 - Exit");
+				System.out.println("3 - Ktr Execution");
+				System.out.println("4 - Exit");
 				System.out.println("########## ---- ##########");
 				inputedVal = scan.next();
 			 
@@ -21,8 +26,10 @@ public class Main {
 			 else if(inputedVal.equals("2")){
 				 ruleGenMenu();
 			 }else if(inputedVal.equals("3")){
-				System.out.println("Exiting...");
-				break;
+				 tranformationExec();
+			 }else if(inputedVal.equals("4")){
+					System.out.println("Exiting...");
+					break;
 			 }
 		 }
 		scan.close();
@@ -55,5 +62,12 @@ public class Main {
 		String significance = scan.next();
 		rules = new RulesGenerator(path, Double.parseDouble(support), Double.parseDouble(significance));
 		rules.AlgorithmApplier();
+	}
+	
+	private static Trans tranformationExec(){
+		System.out.println("########## Kettle Tranformation ##########");
+		System.out.println("Insert Filename");
+		String _filename = scan.next();
+		return transformation.runTransformationFromFileSystem(_filename);
 	}
 }
