@@ -1,6 +1,10 @@
+package pack;
+import java.util.List;
 import java.util.Scanner;
 
 import org.pentaho.di.trans.Trans;
+
+import weka.associations.AssociationRule;
 
 public class Main {
 	static CSV2Arff fileConverted;
@@ -34,15 +38,19 @@ public class Main {
 		 }
 		scan.close();*/
 		String base = "C:\\sad\\PBI\\workspace\\Fase 2\\";
-		String [] fileNames = {"TASKDATA1","TASKDATA2","TASKDATA3"};
+		String [] fileNames = {"TASKDATA1"};//,"TASKDATA2","TASKDATA3"};
 
 		for(int i = 0; i < fileNames.length; i++) {
 			Transformations transformation = new Transformations();
 			transformation.runTransformationFromFileSystem(base + fileNames[i] + ".ktr");
 			CSV2Arff fileConverted = new CSV2Arff();
 			fileConverted.fileConversion(base + fileNames[i]);
-			RulesGenerator rules = new RulesGenerator(base + fileNames[i]+".arff", 0.3, 0.9);
-			rules.AlgorithmApplier();
+			System.out.println("Going to generate rules");
+			RulesGenerator rulesGen = new RulesGenerator(base + fileNames[i]+".arff", 0.3, 0.9);
+			List<AssociationRule> rules = rulesGen.AlgorithmApplier();
+			for (AssociationRule rule : rules) {
+				System.out.println("People that buys " + rule.getPremise() + " also buys " + rule.getConsequence() + " with a confidence of " + rule.getNamedMetricValue("Confidence")*100 + "%.");
+			}
 		}
 	 }
 	/*private static void fileConversion(){

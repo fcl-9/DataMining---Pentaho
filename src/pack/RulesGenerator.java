@@ -1,5 +1,8 @@
 package pack;
+import java.util.List;
+
 import weka.associations.Apriori;
+import weka.associations.AssociationRule;
 import weka.core.Instances;
 import weka.core.converters.ConverterUtils.DataSource;
  
@@ -36,7 +39,7 @@ public class RulesGenerator {
 		System.out.println("Generation rules constructor finish");
 	}
 
-	public void AlgorithmApplier(){
+	public List<AssociationRule> AlgorithmApplier(){
 		System.out.println("Going to apply Apriori");
 		Apriori apriori = new Apriori();
 		System.out.println("New Apriori created");
@@ -55,6 +58,7 @@ public class RulesGenerator {
 				System.out.println("I can produce rules");
 				//ArrayList<Object>[] rules = apriori
 				System.out.println(apriori);
+				return apriori.getAssociationRules().getRules();
 				/*for(int i=0; i < rules.length;i++ ){
 					System.out.println(rules[i]);
 				}*/
@@ -67,6 +71,7 @@ public class RulesGenerator {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return null;
 		
 	}
 	
