@@ -71,11 +71,16 @@ public class CSV2Arff {
 	    }
 
 	    // save ARFF
+	    
+	    File f = new File(filename + ".arff"); //file name will be entered by user at runtime
+        if(f.exists())
+        {
+             f.delete();
+        }	    
 	    System.out.println("Saving ARFF");
 	    ArffSaver saver = new ArffSaver();
-	    saver.setFile(new File(filename + ".arff"));
+	    saver.setFile(f);
 	    saver.setInstances(newDataset);
-	    //saver.setDestination(new File(args[1]));
 	    saver.writeBatch();
 	  }
 }
