@@ -5,12 +5,12 @@ import org.pentaho.di.trans.Trans;
 public class Main {
 	static CSV2Arff fileConverted;
 	static RulesGenerator rules;
-	static Tranformations transformation;
+	static Transformations transformation;
 	
 	static Scanner scan = new Scanner(System.in);
 
 	public static void main(String[] args) throws Exception {
-		String inputedVal = "0"; 
+		/*String inputedVal = "0"; 
 		while(true){
 				System.out.println("########## MENU ##########");
 				System.out.println("1 - File Conversion");
@@ -32,9 +32,20 @@ public class Main {
 					break;
 			 }
 		 }
-		scan.close();
+		scan.close();*/
+		String base = "C:\\sad\\PBI\\workspace\\Fase 2\\";
+		String [] fileNames = {"TASKDATA1","TASKDATA2","TASKDATA3"};
+
+		for(int i = 0; i < fileNames.length; i++) {
+			Transformations transformation = new Transformations();
+			transformation.runTransformationFromFileSystem(base + fileNames[i] + ".ktr");
+			CSV2Arff fileConverted = new CSV2Arff();
+			fileConverted.fileConversion(base + fileNames[i]);
+			RulesGenerator rules = new RulesGenerator(base + fileNames[i]+".arff", 0.3, 0.9);
+			rules.AlgorithmApplier();
+		}
 	 }
-	private static void fileConversion(){
+	/*private static void fileConversion(){
 		System.out.println("########## File Conversion ##########");
 		fileConverted = new CSV2Arff();
 	    String[] args1s = new String[2];
@@ -50,7 +61,7 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
 	private static void ruleGenMenu(){
 		System.out.println("########## Rule Generation ##########");
@@ -68,7 +79,7 @@ public class Main {
 		System.out.println("########## Kettle Tranformation ##########");
 		System.out.println("Insert Filename");
 		String _filename = scan.next();
-		transformation = new Tranformations();
+		transformation = new Transformations();
 		return transformation.runTransformationFromFileSystem(_filename);
 	}
 }
